@@ -57,9 +57,31 @@ async function deleteCocktail(name) {
   }
 }
 
+async function insertCocktail(cocktail) {
+  const { rows } = await db.query('SELECT Max(cid) as max from cocktail');
+  const newCID = rows[0].max + 1;
+  await db.query(
+    'INSERT INTO cocktail (cid, cname, preis, zubereitung, kid, zgid, sgid) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+    [
+      newCID,
+      cocktail.name,
+      cocktail.preis,
+      cocktail.zubereitung,
+      cocktail.kid,
+      cocktail.zgid,
+      cocktail.sgid,
+    ],
+  );
+  return {
+    status: 200,
+    data: `Inserted ${newCID}`,
+  };
+};
+
 module.exports = {
   getCocktails,
   getCocktailZutat,
   getCocktailsWithPrice,
   deleteCocktail,
+  insertCocktail,
 };
