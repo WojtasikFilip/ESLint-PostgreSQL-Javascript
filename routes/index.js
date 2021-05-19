@@ -7,6 +7,7 @@ const {
   getCocktailsWithPrice,
   deleteCocktail,
   insertCocktail,
+  updateCocktailPrice,
 } = require('../model/cocktails');
 
 router.get(
@@ -46,6 +47,14 @@ router.post(
   asyncHandler(async (req, res) => {
     let result = await insertCocktail(req.body);
     res.status(result.status).send(result.data);
+  }),
+);
+
+router.patch(
+  '/cocktails/:name',
+  asyncHandler(async (req, res) => {
+    const result = await updateCocktailPrice(req.body, req.params.name);
+    res.status(result.code).json(result);
   }),
 );
 
