@@ -23,7 +23,23 @@ async function getCocktailZutat(cName) {
   }
 }
 
+async function getCocktailsWithPrice(price) {
+  try {
+    const { rows } = await db.query(
+      'select cname, preis from cocktail where preis <= $1;',
+      [price],
+    );
+    return {
+      code: 200,
+      data: rows,
+    };
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports = {
   getCocktails,
   getCocktailZutat,
+  getCocktailsWithPrice,
 };
