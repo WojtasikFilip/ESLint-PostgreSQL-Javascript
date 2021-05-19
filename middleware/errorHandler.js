@@ -1,7 +1,7 @@
-// const errorHandler = (err, req, res, next) => {
-// };
+const errorHandler = (err, req, res, next) => {
+};
 
-// const notFound = (req, res) => {
-// };
+const notFound = (req, res) => {
+};
 
-// module.exports = { errorHandler, notFound };
+module.exports = { errorHandler, notFound };
